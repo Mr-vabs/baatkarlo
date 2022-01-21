@@ -1,111 +1,131 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 0 20px;
-}
+ <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="shortcut icon" href="https://drive.google.com/uc?id=1kwIkyj5KiiJZs_mX5YLvSOwwlVAFTaAH&export=download" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&display=swap" rel="stylesheet">
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="description" content="Its an app to chat with your group mates by creating a group where you can share links and more important texts ." />
+  <title>Chat Application</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&display=swap');
+    body {
+      font-family: 'Baloo Bhaijaan 2', cursive;
+      background: url("https://raw.githubusercontent.com/Mr-vabs/mnnessaa/main/card/layered-waves.svg");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      max-width: 100vw;
+      min-height: 100vh;
+      color: white;
+    }
 
-.container {
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
-}
+    .container {
+      margin: auto;
+      /* width: ; */
+      /* background-color: black; */
+    }
 
-.darker {
-  border-color: #ccc;
-  background-color: #ddd;
-}
+    h1 {
+      text-align: center;
+      margin: 20px;
+      font-weight: bold;
+      /* color: blanchedalmond; */
+    }
 
-.container::after {
-  content: "";
-  clear: both;
-  display: table;
-}
+    .form-label {
+      /* color: blanchedalmond; */
+      font-weight: 700;
+    }
 
-.container img {
-  float: left;
-  max-width: 60px;
-  width: 100%;
-  margin-right: 20px;
-  border-radius: 50%;
-}
+    .para {
+      background-color: burlywood;
+      text-align: justify;
+      padding: 10px;
+    }
 
-.container img.right {
-  float: right;
-  margin-left: 20px;
-  margin-right:0;
-}
+    span {
+      font-weight: bold;
+      color: red;
+    }
 
-.time-right {
-  float: right;
-  color: #aaa;
-}
-
-.time-left {
-  float: left;
-  color: #999;
-}
-</style>
+  </style>
 </head>
 <body>
-
-<div align="center">
-    <h2>Django Chat</h2>
-</div>
-
-
-<div class="container">
-    <style>
-    input[type=text], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    }
-
-    input[type=submit] {
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    }
-
-    input[type=submit]:hover {
-    background-color: #45a049;
-    }
-
-    div {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-    }
-    </style>
-
+  <h1>Enter details to Chat</h1>
+  <div class="container">
+    <p class="para">
+      Welcome to <span>DJ</span>, a minimal, distraction-free chat application. <br> Rooms are created, joined and shared with the url, create your own rooms by changing the text after the .com/. <br> If you wanted your room name to be 'your-room:
+      <span> http://vebhvv.pythonanywhere.com/YOUR-ROOM/?username=YOUR-USERNAME</span>
+      <br> There are no channel lists, so a secret channel name can be used for <span>private discussions</span> You can contact me from bottom right <span>social icons</span>.
+    </p>
+  </div>
+  <!-- Optional JavaScript; choose one of the two! -->
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <div class="container">
     <form id="post-form" method="POST" action="checkview">
-        {% csrf_token %}
-        <label>Room Name</label>
-        <input type="text" name="room_name" id="room_name" width="100px" />
-        <label>Username</label>
-        <input type="text" name="username" id="username" width="100px" />
-        <input type="submit" value="Enter Room">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Room Name</label>
+        <input type="text" class="form-control" name="room_name" id="room_name" required="true" placeholder="e.g., Code warriers">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-control" name="username" id="username" required="true" placeholder="e.g., Ironman, Spiderman">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-</div>
+  </div>
+<style>
+     .social-btn-cu {
+      position: fixed;
+      bottom: 2%;
+      right: 2%;
+      width: 60px;
+      height: 100px;
+    }
 
+    .social-btn-cu a {
+      position: relative;
+      width: 100%;
+      height: 50%;
+      padding: 10px;
+      display: inline-block;
+      text-decoration: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: white;
+    }
+    .btn-tele,
+    .btn-fb {
+      height: 48%;
+      width: 98%;
+      position: fixed;
+      border-radius: 50px;
+      transition: 0.2s all linear;
+    }
+    .btn-fb {
+      background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMTAwJSIgc3R5bGU9ImZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgd2lkdGg9IjEwMCUiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c2VyaWY9Imh0dHA6Ly93d3cuc2VyaWYuY29tLyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxnPjxwYXRoIGQ9Ik01MTIsMjU2YzAsLTE0MS4zODUgLTExNC42MTUsLTI1NiAtMjU2LC0yNTZjLTE0MS4zODUsMCAtMjU2LDExNC42MTUgLTI1NiwyNTZjMCwxMjcuNzc3IDkzLjYxNiwyMzMuNjg1IDIxNiwyNTIuODlsMCwtMTc4Ljg5bC02NSwwbDAsLTc0bDY1LDBsMCwtNTYuNGMwLC02NC4xNiAzOC4yMTksLTk5LjYgOTYuNjk1LC05OS42YzI4LjAwOSwwIDU3LjMwNSw1IDU3LjMwNSw1bDAsNjNsLTMyLjI4MSwwYy0zMS44MDEsMCAtNDEuNzE5LDE5LjczMyAtNDEuNzE5LDM5Ljk3OGwwLDQ4LjAyMmw3MSwwbC0xMS4zNSw3NGwtNTkuNjUsMGwwLDE3OC44OWMxMjIuMzg1LC0xOS4yMDUgMjE2LC0xMjUuMTEzIDIxNiwtMjUyLjg5WiIgc3R5bGU9ImZpbGw6IzE4NzdmMjtmaWxsLXJ1bGU6bm9uemVybzsiLz48cGF0aCBkPSJNMzU1LjY1LDMzMGwxMS4zNSwtNzRsLTcxLDBsMCwtNDguMDIyYzAsLTIwLjI0NSA5LjkxNywtMzkuOTc4IDQxLjcxOSwtMzkuOTc4bDMyLjI4MSwwbDAsLTYzYzAsMCAtMjkuMjk3LC01IC01Ny4zMDUsLTVjLTU4LjQ3NiwwIC05Ni42OTUsMzUuNDQgLTk2LjY5NSw5OS42bDAsNTYuNGwtNjUsMGwwLDc0bDY1LDBsMCwxNzguODljMTMuMDMzLDIuMDQ1IDI2LjM5MiwzLjExIDQwLDMuMTFjMTMuNjA4LDAgMjYuOTY2LC0xLjA2NSA0MCwtMy4xMWwwLC0xNzguODlsNTkuNjUsMFoiIHN0eWxlPSJmaWxsOiNmZmY7ZmlsbC1ydWxlOm5vbnplcm87Ii8+PC9nPjwvc3ZnPg==');
+    }
 
+    .btn-tele {
+      background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOnVybCgjU1ZHSURfMV8pO30KCS5zdDF7ZmlsbDojRkZGRkZGO30KCS5zdDJ7ZmlsbDojRDJFNEYwO30KCS5zdDN7ZmlsbDojQjVDRkU0O30KPC9zdHlsZT48Zz48bGluZWFyR3JhZGllbnQgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGlkPSJTVkdJRF8xXyIgeDE9IjI1NiIgeDI9IjI1NiIgeTE9IjAiIHkyPSI1MTAuMTMyMiI+PHN0b3Agb2Zmc2V0PSIwIiBzdHlsZT0ic3RvcC1jb2xvcjojNDFCQ0U3Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojMjJBNkRDIi8+PC9saW5lYXJHcmFkaWVudD48Y2lyY2xlIGNsYXNzPSJzdDAiIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjI1NiIvPjxnPjxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0zODAuNiwxNDcuM2wtNDUuNywyMzAuNWMwLDAtNi40LDE2LTI0LDguM2wtMTA1LjUtODAuOUwxNjcsMjg2LjdsLTY0LjYtMjEuN2MwLDAtOS45LTMuNS0xMC45LTExLjIgICAgYy0xLTcuNywxMS4yLTExLjgsMTEuMi0xMS44bDI1Ni44LTEwMC43QzM1OS41LDE0MS4yLDM4MC42LDEzMS45LDM4MC42LDE0Ny4zeiIvPjxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0xOTcuMiwzNzUuMmMwLDAtMy4xLTAuMy02LjktMTIuNGMtMy44LTEyLjEtMjMuMy03Ni4xLTIzLjMtNzYuMWwxNTUuMS05OC41YzAsMCw5LTUuNCw4LjYsMCAgICBjMCwwLDEuNiwxLTMuMiw1LjRjLTQuOCw0LjUtMTIxLjgsMTA5LjctMTIxLjgsMTA5LjciLz48cGF0aCBjbGFzcz0ic3QzIiBkPSJNMjQ1LjgsMzM2LjJsLTQxLjcsMzguMWMwLDAtMy4zLDIuNS02LjgsMC45bDgtNzAuNyIvPjwvZz48L2c+PC9zdmc+');
+    }
+  </style>
+  <div class="social-btn-cu">
+    <a href="https://www.facebook.com/Mr.vabs" class="btn-fb"></a>
+    <a href="https://t.me/V4IBHAV" class="btn-tele"></a>
+  </div>
 </body>
-
-
 </html>
