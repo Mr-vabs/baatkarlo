@@ -1,3 +1,3 @@
-## baatkarlo
+## Baatkarlo
 
-https://vebhvv.pythonanywhere.com/
+Deployment : [deployed](https://vebhvv.pythonanywhere.com/)
