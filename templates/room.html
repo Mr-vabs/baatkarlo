@@ -1,298 +1,398 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <link rel="shortcut icon" href="https://drive.google.com/uc?id=1kwIkyj5KiiJZs_mX5YLvSOwwlVAFTaAH&export=download" type="image/x-icon" />
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Welcome to Django Chat, a minimal, distraction-free chat application. Rooms are created, joined and shared by room name and any username." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&display=swap" rel="stylesheet">
-    <title>{{room}} Room</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&display=swap');
-        body {
-            font-family: 'Baloo Bhaijaan 2', cursive;
-            margin: 0 auto;
-            padding: 0 20px;
-            background: url("https://raw.githubusercontent.com/Mr-vabs/mnnessaa/main/card/layered-waves.svg");
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            max-width: 100vw;
-            min-height: 100vh;
-        }
+    <head>
+        <link
+            rel="shortcut icon"
+            href="https://drive.google.com/uc?id=1kwIkyj5KiiJZs_mX5YLvSOwwlVAFTaAH&export=download"
+            type="image/x-icon"
+        />
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Welcome to Django Chat, a minimal, distraction-free chat application."
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&display=swap"
+            rel="stylesheet"
+        />
+        <title>{{room}} Room</title>
+        <style>
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                overflow-y: scroll;
+                /* Ensure the page can scroll */
+            }
+            body {
+                font-family: "Baloo Bhaijaan 2", cursive;
+                background: url("https://raw.githubusercontent.com/Mr-vabs/mnnessaa/main/card/layered-waves.svg")
+                    center / cover no-repeat fixed;
+                max-width: 100vw;
+                min-height: 100vh;
+            }
+            .container {
+                width: 90%;
+                max-width: 720px;
+                margin: 0 auto;
+                box-sizing: border-box;
+            }
+            .darker {
+                border-color: #ccc;
+                background-color: #ddd;
+            }
+            .msg-ctn {
+                border: 2px solid #dedede;
+                background-color: #f1f1f1;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px 0;
+                position: relative;
+                word-wrap: break-word;
+                word-break: break-all;
+                overflow-wrap: break-word;
+                white-space: pre-wrap;
+            }
+            .msg-ctn pre {
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                overflow-x: auto;
+                max-width: 100%;
+            }
+            .time-right {
+                float: right;
+                color: #aaa;
+            }
+            .time-left {
+                clear: both;
+                display: block;
+                color: #999;
+                margin-top: 5px;
+            }
+            .un-nav {
+                width: 70px;
+                height: 70px;
+                position: fixed;
+                top: 0;
+                right: 0;
+                color: #fff;
+                font-size: 20px;
+                z-index: 10;
+                cursor: pointer;
+                border-radius: 0 0 0 50px;
+                background: rgba(219, 211, 211, 0.25);
+                box-shadow: 0 8px 12px 0 rgba(31, 38, 135, 0.37);
+                backdrop-filter: blur(6px);
+                border: 1px solid rgba(255, 255, 255, 0.18);
+            }
+            .un-nav span {
+                height: 25%;
+                width: 100%;
+                font-weight: bold;
+                text-align: center;
+            }
+            .un-nav span a {
+                width: 100%;
+                height: 100%;
+                padding: 10px 30px 10px 5px;
+                display: inline-block;
+                text-decoration: none;
+                color: white;
+            }
+            #search {
+                width: 100%;
+                padding: 12px;
+                margin: 8px 0;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+            .copy-btn {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                background-color: #4caf50;
+                color: white;
+                padding: 5px 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .copy-btn:hover {
+                background-color: #45a049;
+            }
+            input[type="text"],
+            select {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            input[type="submit"] {
+                width: 100%;
+                background-color: #4caf50;
+                color: white;
+                padding: 14px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                text-align: center;
+            }
+            input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+            #display {
+                padding: 170px 0;
+            }
+            #message-box {
+                position: fixed;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                max-width: 720px;
+                background-color: #f1f1f1;
+                z-index: 5;
+                padding: 25px;
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+                box-sizing: border-box;
+            }
+            #post-form input[type="text"] {
+                width: 80%;
+            }
+            #post-form input[type="submit"] {
+                width: 18%;
+            }
+            .header-container {
+                position: fixed;
+                top: 0;
+                background: rgba(129, 19, 49, 0.5);
+                z-index: 5;
+                padding: 10px 5px;
+                text-align: center;
+                width: 88%;
+                max-width: 720px;
+            }
+            .header-container h2 {
+                font-weight: bold;
+                color: white;
+                margin: 0;
+            }
+            .scroll-btn {
+                width: 50px;
+                height: 50px;
+                position: fixed;
+                right: 20px;
+                z-index: 100;
+                cursor: pointer;
+                border-radius: 50%;
+                background-color: rgba(219, 211, 211, 0.5);
+                box-shadow: 0 8px 12px rgba(31, 38, 135, 0.37);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                font-size: 20px;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+            }
+            #scroll-top {
+                bottom: 80px;
+            }
+            #scroll-bottom {
+                bottom: 20px;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.0/purify.min.js"></script>
+        <!-- Ensure DOMPurify is loaded -->
+    </head>
+    <body>
+        <div class="container">
+            <nav class="un-nav">
+                <span><a href="/">Home</a></span>
+            </nav>
+            <div class="header-container">
+                <h2>{{room}} - Let's start chat with encryption</h2>
+                <input
+                    type="text"
+                    id="search"
+                    placeholder="Search messages..."
+                    onkeyup="searchMessages()"
+                />
+            </div>
+            <div id="display"></div>
+            <div id="message-box">
+                <form id="post-form">
+                    {% csrf_token %}
+                    <input
+                        type="hidden"
+                        name="username"
+                        id="username"
+                        value="{{username}}"
+                    />
+                    <input
+                        type="hidden"
+                        name="room_id"
+                        id="room_id"
+                        value="{{room_details.id}}"
+                    />
+                    <input
+                        type="text"
+                        name="message"
+                        id="message"
+                        placeholder="Enter message to send"
+                        required="true"
+                    />
+                    <input type="submit" value="Send" />
+                </form>
+            </div>
+            <!-- Scroll buttons -->
+            <div id="scroll-top" class="scroll-btn" onclick="scrollToTop()">
+                ↑
+            </div>
+            <div
+                id="scroll-bottom"
+                class="scroll-btn"
+                onclick="scrollToBottom()"
+            >
+                ↓
+            </div>
+        </div>
+        <script>
+            function copyText(text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert("Message copied to clipboard!");
+                });
+            }
 
+            function searchMessages() {
+                const input = document
+                    .getElementById("search")
+                    .value.toLowerCase();
+                const messages = document.querySelectorAll(".msg-ctn p");
+                messages.forEach(message => {
+                    message.parentElement.style.display = message.textContent
+                        .toLowerCase()
+                        .includes(input)
+                        ? ""
+                        : "none";
+                });
+            }
 
-        .darker {
-            border-color: #ccc;
-            background-color: #ddd;
-        }
+            function convertToLocalTime(utcDateString) {
+                const utcDate = new Date(utcDateString);
+                return isNaN(utcDate.getTime())
+                    ? "Invalid date"
+                    : utcDate.toLocaleString();
+            }
 
-        .msg-ctn {
-            border: 2px solid #dedede;
-            background-color: #f1f1f1;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px;
-            position: relative;
-        }
-        .msg-ctn::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
+            $(document).ready(function () {
+                const appendedMessages = new Set();
 
-        .time-right {
-            float: right;
-            color: #aaa;
-        }
+                // Load messages on page load
+                loadMessages();
+                setInterval(loadMessages, 1000);
 
-        .time-left {
-            float: left;
-            color: #999;
-        }
+                function loadMessages() {
+                    $.ajax({
+                        type: "GET",
+                        url: "/getMessages/{{room}}/",
+                        success: function (response) {
+                            const serverMessages = new Set();
+                            response.messages.forEach(message => {
+                                const messageText = DOMPurify.sanitize(
+                                    message.value.trim()
+                                );
+                                if (messageText !== "") {
+                                    const localTime = convertToLocalTime(
+                                        message.date
+                                    );
+                                    const messageID = message.id;
+                                    const messageContent = `<p>${messageText}</p>`;
+                                    const temp = `<div class='msg-ctn darker' id='message-${messageID}'><b>${message.user}</b>${messageContent}<span class='time-left'>${localTime}</span><button class='copy-btn' onclick="copyText('${messageText}')">Copy</button></div>`;
 
-        .un-nav {
-            width: 70px;
-            height: 70px;
-            position: fixed;
-            top: 0;
-            right: 0;
-            color: #fff;
-            font-size: 20px;
-            z-index: 10;
-            cursor: pointer;
-            border-radius: 0 0 0 50px;
-            background: rgba(219, 211, 211, 0.25);
-            box-shadow: 0 8px 12px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(6.0px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
+                                    serverMessages.add(messageID);
+                                    if (!appendedMessages.has(messageID)) {
+                                        $("#display").append(temp);
+                                        appendedMessages.add(messageID);
+                                    }
+                                }
+                            });
 
-        .un-nav span {
-            height: 25%;
-            width: 100%;
-            font-weight: bold;
-            text-align: center;
-        }
+                            appendedMessages.forEach(messageID => {
+                                if (!serverMessages.has(messageID)) {
+                                    $(`#message-${messageID}`).remove();
+                                    appendedMessages.delete(messageID);
+                                }
+                            });
 
-        .un-nav span a {
-            width: 100%;
-            height: 100%;
-            padding: 10px 30px 10px 5px;
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-        }
+                            $("#display").toggle(
+                                $("#display").children().length > 0
+                            );
+                        },
+                        error: function (response) {
+                            alert("An error occurred");
+                        }
+                    });
+                }
 
-        #search {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .copy-btn {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            background-color: #4CAF50;
-            color: white;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .copy-btn:hover {
-            background-color: #45a049;
-        }
-
-        input[type=text], select {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        input[type=submit] {
-            width: 100%;
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 16px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        input[type=submit]:hover {
-            background-color: #45a049;
-        }
-
-        div {
-            border-radius: 5px;
-            background-color: #f2f2f2;
-            padding: 20px;
-        }
-
-        #display {
-            padding-bottom: 100px; /* Space between last message and input box */
-        }
-
-        #message-box {
-            position: fixed;
-            bottom: 0;
-            width: 80%;
-            background-color: #f1f1f1;
-            z-index: 5;
-        }
-
-        #post-form input[type=text] {
-            width: 80%;
-        }
-
-        #post-form input[type=submit] {
-            width: 18%;
-        }
-
-        .header-container {
-            position: sticky;
-            top: 0;
-            background: rgba( 219, 211, 211, 0.25 );
-            z-index: 5;
-            padding: 10px 5px;
-        }
-
-        .header-container h2 {
-            font-weight: bold;
-            color: white;
-        }
-    </style>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-</head>
-<body>
-
-<nav class="un-nav">
-    <span><a href="/">Home</a></span>
-</nav>
-
-<div class="header-container">
-    <h2>{{room}} - Let's start chat with encryption</h2>
-    <input type="text" id="search" placeholder="Search messages..." onkeyup="searchMessages()">
-</div>
-
-<div id="display"></div>
-
-<script>
-    function copyText(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            alert("Message copied to clipboard!");
-        });
-    }
-
-    function searchMessages() {
-        const input = document.getElementById("search").value.toLowerCase();
-        const messages = document.querySelectorAll(".msg-ctn p");
-        messages.forEach((message) => {
-            message.parentElement.style.display = message.textContent.toLowerCase().includes(input) ? "" : "none";
-        });
-    }
-
-    function convertToLocalTime(utcDateString) {
-        const utcDate = new Date(utcDateString);
-        if (isNaN(utcDate.getTime())) {
-            return "Invalid date";
-        }
-        return utcDate.toLocaleString();
-    }
-
-    $(document).ready(function() {
-        const appendedMessages = new Set();
-
-        setInterval(function() {
-            $.ajax({
-                type: 'GET',
-                url: "/getMessages/{{room}}/",
-                success: function(response) {
-                    const serverMessages = new Set();
-
-                    response.messages.forEach((message) => {
-                        const messageText = message.value.trim();
-
-                        if (messageText !== "") {
-                            const localTime = convertToLocalTime(message.date);
-                            const messageID = message.id;
-                            const messageContent = `<p>${messageText}</p>`;
-                            const temp = `<div class='msg-ctn darker' id='message-${messageID}'><b>${message.user}</b>${messageContent}<span class='time-left'>${localTime}</span><button class='copy-btn' onclick="copyText('${messageText}')">Copy</button></div>`;
-
-                            serverMessages.add(messageID);
-
-                            if (!appendedMessages.has(messageID)) {
-                                $("#display").append(temp);
-                                appendedMessages.add(messageID);
+                $(document).on("submit", "#post-form", function (e) {
+                    e.preventDefault();
+                    const messageInput = DOMPurify.sanitize(
+                        $("#message").val().trim()
+                    );
+                    if (messageInput !== "") {
+                        $.ajax({
+                            type: "POST",
+                            url: "/send",
+                            data: {
+                                username: $("#username").val(),
+                                room_id: $("#room_id").val(),
+                                message: messageInput,
+                                csrfmiddlewaretoken: $(
+                                    "input[name=csrfmiddlewaretoken]"
+                                ).val()
+                            },
+                            success: function (data) {
+                                $("#message").val("");
+                            },
+                            error: function () {
+                                alert("Failed to send message.");
                             }
-                        }
-                    });
-
-                    appendedMessages.forEach((messageID) => {
-                        if (!serverMessages.has(messageID)) {
-                            $(`#message-${messageID}`).remove();
-                            appendedMessages.delete(messageID);
-                        }
-                    });
-                    if ($("#display").children().length === 0) {
-                    $("#display").hide();
+                        });
                     } else {
-                    $("#display").show();
+                        alert("Message cannot be empty.");
+                    }
+                });
+                // Scroll to the top of the page
+                function scrollToTop() {
+                    $("html, body").animate(
+                        {
+                            scrollTop: 0
+                        },
+                        "smooth"
+                    ); // Scroll to top smoothly
                 }
-                },
-                error: function(response) {
-                    alert('An error occurred');
+
+                // Scroll to the bottom of the page
+                function scrollToBottom() {
+                    $("html, body").animate(
+                        {
+                            scrollTop: $(document).height()
+                        },
+                        "smooth"
+                    ); // Scroll to bottom smoothly
                 }
+
+                // Attach the scroll functions to the buttons
+                $("#scroll-top").on("click", scrollToTop);
+                $("#scroll-bottom").on("click", scrollToBottom);
             });
-        }, 1000);
-    });
-
-    $(document).on('submit', '#post-form', function(e) {
-        e.preventDefault();
-        const messageInput = $('#message').val().trim();
-
-        if (messageInput !== "") {
-            $.ajax({
-                type: 'POST',
-                url: '/send',
-                data: {
-                    username: $('#username').val(),
-                    room_id: $('#room_id').val(),
-                    message: messageInput,
-                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-                },
-                success: function(data) {
-                    $('#message').val('');
-                }
-            });
-        } else {
-            alert("Message cannot be empty.");
-        }
-    });
-</script>
-
-<div id="message-box">
-    <form id="post-form" style="margin-top:5px;">
-        {% csrf_token %}
-        <input type="hidden" name="username" id="username" value="{{username}}"/>
-        <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
-        <input type="text" name="message" id="message" required="true" />
-        <input type="submit" value="Send">
-    </form>
-</div>
-
-</body>
+        </script>
+    </body>
 </html>
